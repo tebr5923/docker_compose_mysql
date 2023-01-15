@@ -13,6 +13,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "role")
 public class Role implements GrantedAuthority {
+    public static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

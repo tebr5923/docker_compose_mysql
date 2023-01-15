@@ -7,6 +7,7 @@ import ru.kata.spring.boot_security.demo.dao.UserDao;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -46,6 +47,12 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
+    }
+
+    @Override
+    @Transactional
+    public Optional<User> getUserByEmail(String email){
+        return userDao.getUserByEmail(email);
     }
 
 }
