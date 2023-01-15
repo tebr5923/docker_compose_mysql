@@ -27,7 +27,7 @@ public class UserController {
     @PostMapping
     public String create(@ModelAttribute("user") User user) {
         userService.saveUser(user);
-        return "redirect:/users";
+        return "redirect:/login";
     }
 
 
