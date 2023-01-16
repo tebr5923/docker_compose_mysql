@@ -1,37 +1,36 @@
 package ru.kata.spring.boot_security.demo.configs;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.service.UserService;
-
-import java.util.Optional;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
+    private final UserDetailsService userDetailsService;
 
-    public WebSecurityConfig(SuccessUserHandler successUserHandler) {
+    public WebSecurityConfig(SuccessUserHandler successUserHandler, UserDetailsService userDetailsService) {
         this.successUserHandler = successUserHandler;
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/index","/users/new").permitAll()
+                .antMatchers("/", "/auth/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/auth/login")
                 .loginProcessingUrl("/register")
                 .usernameParameter("email")
                 .passwordParameter("password")
+             //   .defaultSuccessUrl("/auth/success", true)
+              //  .failureUrl("/auth/login?error")
                 .successHandler(successUserHandler)
                 .permitAll()
                 .and()
@@ -39,6 +38,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
     }
 
+    @Override
+    protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder
+                .userDetailsService(userDetailsService);
+    }
     // аутентификация inMemory
 //    @Bean
 //    @Override
@@ -53,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        return new InMemoryUserDetailsManager(user);
 //    }
 
-    @Bean
+  /*  @Bean
     public UserDetailsService userDetailsService(UserService userService) {
         return username -> {
             Optional<User> user = userService.getUserByEmail(username);
@@ -63,6 +67,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             throw new UsernameNotFoundException("User ‘" + username + "’ not found");
         };
 
-    }
+    }*/
 
 }
