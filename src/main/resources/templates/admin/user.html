@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<form th:method="PATCH" th:action="@{/users/{userId}(userId=${user.id})}" th:object="${user}">
+<form th:method="PATCH" th:action="@{/admin/user/{userId}(userId=${user.id})}" th:object="${user}">
     <label for="firstName">firstName:
         <input type="text" name="firstName" th:value="*{firstName}" id="firstName">
     </label>
@@ -24,7 +24,7 @@
 </form>
 
 
-<form th:method="DELETE" th:action="@{/users/{userId}(userId=${user.id})}">
+<form th:method="DELETE" th:action="@{/admin/user/{userId}(userId=${user.id})}">
     <input type="submit" value="Delete"/>
 </form>
 </body>

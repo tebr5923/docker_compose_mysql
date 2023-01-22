@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/auth/login")
-                .loginProcessingUrl("/register")
+                .loginProcessingUrl("/login")
                 .usernameParameter("email")
                 .passwordParameter("password")
              //   .defaultSuccessUrl("/auth/success", true)
@@ -52,31 +52,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder getPasswordEncoder(){
         return new BCryptPasswordEncoder(12);
     }
-
-    // аутентификация inMemory
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("user")
-//                        .password("user")
-//                        .roles("USER")
-//                        .build();
-//
-//        return new InMemoryUserDetailsManager(user);
-//    }
-
-  /*  @Bean
-    public UserDetailsService userDetailsService(UserService userService) {
-        return username -> {
-            Optional<User> user = userService.getUserByEmail(username);
-            if (user.isPresent()) {
-                return user.get();
-            }
-            throw new UsernameNotFoundException("User ‘" + username + "’ not found");
-        };
-
-    }*/
 
 }

@@ -4,7 +4,16 @@ package ru.kata.spring.boot_security.demo.model;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
@@ -33,6 +42,7 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
+//    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_role",
@@ -52,8 +62,8 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    private void addRole(Role role) {
-        roles.add(role);
+    public void addRole(Role role) {
+        this.roles.add(role);
     }
 
     @Override
