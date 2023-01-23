@@ -37,5 +37,9 @@
 <form th:method="DELETE" th:action="@{/admin/user/{userId}(userId=${user.id})}">
     <input type="submit" value="Delete"/>
 </form>
+
+<div th:if="${#authorization.expression('isAuthenticated()')}"
+     th:replace="footer :: logout">view footer</div>
+
 </body>
 </html>

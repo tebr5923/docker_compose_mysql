@@ -30,5 +30,8 @@
     <input type="submit" value="Create"/>
 </form>
 
+<div th:if="${#authorization.expression('isAuthenticated()')}"
+     th:replace="footer :: logout">view footer</div>
+
 </body>
 </html>
