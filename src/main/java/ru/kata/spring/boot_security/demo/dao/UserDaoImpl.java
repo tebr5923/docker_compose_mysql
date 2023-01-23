@@ -42,9 +42,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Optional<User> getUserByEmail(String email) {
+    public Optional<User> getUserWithRolesByEmail(String email) {
         return entityManager
-                .createQuery("select u FROM User u where u.email = :email", User.class)
+                .createQuery("select u FROM User u left join fetch u.roles where u.email = :email", User.class)
                 .setParameter("email", email)
                 .getResultList()
                 .stream().findFirst();

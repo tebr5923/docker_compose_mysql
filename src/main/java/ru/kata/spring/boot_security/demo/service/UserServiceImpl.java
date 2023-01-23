@@ -49,8 +49,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> getUserByEmail(String email){
-        return userDao.getUserByEmail(email);
+    public Optional<User> getUserWithRolesByEmail(String email){
+        return userDao.getUserWithRolesByEmail(email);
     }
 
 }
