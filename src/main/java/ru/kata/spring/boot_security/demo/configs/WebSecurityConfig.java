@@ -65,33 +65,34 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder(12);
     }
 
-    @Bean
-    public CommandLineRunner dataLoader(UserService userService, RoleService roleService) {
-        return args -> {
-            Role roleUser = new Role("ROLE_USER");
-            Role roleAdmin = new Role("ROLE_ADMIN");
-            roleService.saveRole(roleUser);
-            roleService.saveRole(roleAdmin);
+//    @Bean
+//    public CommandLineRunner dataLoader(UserService userService, RoleService roleService) {
+//        return args -> {
+//            Role roleUser = new Role("ROLE_USER");
+//            Role roleAdmin = new Role("ROLE_ADMIN");
+//            roleService.saveRole(roleUser);
+//            roleService.saveRole(roleAdmin);
+//
+//            Set<Role> adminRoles = new HashSet<>();
+//            adminRoles.add(roleAdmin);
+//            User admin = new User(
+//                    "AdminFN",
+//                    "AdminLN",
+//                    "admin",
+//                    getPasswordEncoder().encode("admin"),
+//                    adminRoles);
+//            userService.saveUser(admin);
+//
+//            Set<Role> userRoles = new HashSet<>();
+//            userRoles.add(roleUser);
+//            User user = new User(
+//                    "UserFN",
+//                    "UserLN",
+//                    "user",
+//                    getPasswordEncoder().encode("user"),
+//                    userRoles);
+//            userService.saveUser(user);
+//        };
+//    }
 
-            Set<Role> adminRoles = new HashSet<>();
-            adminRoles.add(roleAdmin);
-            User admin = new User(
-                    "AdminFN",
-                    "AdminLN",
-                    "admin",
-                    getPasswordEncoder().encode("admin"),
-                    adminRoles);
-            userService.saveUser(admin);
-
-            Set<Role> userRoles = new HashSet<>();
-            userRoles.add(roleUser);
-            User user = new User(
-                    "UserFN",
-                    "UserLN",
-                    "user",
-                    getPasswordEncoder().encode("user"),
-                    userRoles);
-            userService.saveUser(user);
-        };
-    }
 }
