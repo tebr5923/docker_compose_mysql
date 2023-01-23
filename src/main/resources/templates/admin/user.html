@@ -20,6 +20,16 @@
         <input type="text" name="email" th:value="*{email}" id="email">
     </label>
     <br/>
+    <label for="password">Password: </label>
+    <input type="password" name="password" th:field="*{password}" id="password"/>
+    <br/>
+
+    <h3>Chose Roles:</h3>
+    <div th:each="role : ${roles}">
+        <input th:field="*{roles}" type="checkbox"
+               th:value="${role.getName()}"/>
+        <span th:text="${role.getName()}">ROLE</span><br/>
+    </div>
     <input type="submit" value="Update"/>
 </form>
 

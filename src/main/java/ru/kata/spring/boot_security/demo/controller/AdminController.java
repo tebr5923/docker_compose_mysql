@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    public static final String REDIRECT_TO_LIST_USERS="redirect:/admin/users";
+    public static final String REDIRECT_TO_LIST_USERS = "redirect:/admin/users";
 
     private final UserService userService;
     private final RoleService roleService;
@@ -52,7 +52,11 @@ public class AdminController {
 
 
     @PatchMapping("/user/{id}")
-    public String update(@PathVariable("id") Long id, @ModelAttribute("user") User user) {
+    public String update(@PathVariable("id") Long id,
+                         @ModelAttribute("user") User user,
+                         @RequestParam() Set<Role> roles) {
+        user.setRoles(getRolesFromDB(roles));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.updateUser(user);
         return REDIRECT_TO_LIST_USERS;
     }
@@ -67,6 +71,7 @@ public class AdminController {
     @GetMapping("/user/{id}")
     public String user(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
+        model.addAttribute("roles", roleService.getAllRoles());
         return "admin/user";
     }
 
@@ -76,7 +81,7 @@ public class AdminController {
         return "admin/list";
     }
 
-    private Set<Role> getRolesFromDB(Set<Role> roles){
+    private Set<Role> getRolesFromDB(Set<Role> roles) {
         return roles.stream()
                 //.map(role -> roleService.getRoleByName(role.getName()).orElse(null))
                 .map(role -> roleService.getRoleByName(role.getName()).orElseThrow(() -> new RuntimeException(role.getName() + " is absent in DB")))
