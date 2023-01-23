@@ -78,7 +78,8 @@ public class AdminController {
 
     private Set<Role> getRolesFromDB(Set<Role> roles){
         return roles.stream()
-                .map(role -> roleService.getRoleByName(role.getName()).orElse(null))
+                //.map(role -> roleService.getRoleByName(role.getName()).orElse(null))
+                .map(role -> roleService.getRoleByName(role.getName()).orElseThrow(() -> new RuntimeException(role.getName() + " is absent in DB")))
                 .collect(Collectors.toUnmodifiableSet());
     }
 
