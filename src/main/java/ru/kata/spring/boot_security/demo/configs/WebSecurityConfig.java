@@ -1,7 +1,6 @@
 package ru.kata.spring.boot_security.demo.configs;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,13 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.kata.spring.boot_security.demo.model.Role;
-import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.service.RoleService;
-import ru.kata.spring.boot_security.demo.service.UserService;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Configuration
 @EnableWebSecurity
@@ -64,35 +56,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder(12);
     }
-
-//    @Bean
-//    public CommandLineRunner dataLoader(UserService userService, RoleService roleService) {
-//        return args -> {
-//            Role roleUser = new Role("ROLE_USER");
-//            Role roleAdmin = new Role("ROLE_ADMIN");
-//            roleService.saveRole(roleUser);
-//            roleService.saveRole(roleAdmin);
-//
-//            Set<Role> adminRoles = new HashSet<>();
-//            adminRoles.add(roleAdmin);
-//            User admin = new User(
-//                    "AdminFN",
-//                    "AdminLN",
-//                    "admin",
-//                    getPasswordEncoder().encode("admin"),
-//                    adminRoles);
-//            userService.saveUser(admin);
-//
-//            Set<Role> userRoles = new HashSet<>();
-//            userRoles.add(roleUser);
-//            User user = new User(
-//                    "UserFN",
-//                    "UserLN",
-//                    "user",
-//                    getPasswordEncoder().encode("user"),
-//                    userRoles);
-//            userService.saveUser(user);
-//        };
-//    }
 
 }
