@@ -38,7 +38,7 @@ public class DataLoader {
             User admin = new User(
                     "AdminFN",
                     "AdminLN",
-                    "admin",
+                    "admin@mail.ru",
                     passwordEncoder.encode("admin"),
                     adminRoles);
             userService.saveUser(admin);
@@ -48,7 +48,7 @@ public class DataLoader {
             User user = new User(
                     "UserFN",
                     "UserLN",
-                    "user",
+                    "user@mail.ru",
                     passwordEncoder.encode("user"),
                     userRoles);
             userService.saveUser(user);
