@@ -35,6 +35,7 @@ public class DataLoader {
 
             Set<Role> adminRoles = new HashSet<>();
             adminRoles.add(roleAdmin);
+            adminRoles.add(roleUser);
             User admin = new User(
                     "AdminFN",
                     "AdminLN",

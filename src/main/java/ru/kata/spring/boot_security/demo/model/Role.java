@@ -33,6 +33,10 @@ public class Role implements GrantedAuthority {
         return id;
     }
 
+    public String getShortName() {
+        return this.name.replace("ROLE_", "");
+    }
+
     @Override
     public String toString() {
         return "Role{" +
