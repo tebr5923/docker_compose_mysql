@@ -27,31 +27,33 @@ public class DataLoader {
     }
 
     @PostConstruct
-    public void loadDataToDB(){
+    public void loadDataToDB() {
         Role roleUser = new Role("ROLE_USER");
-            Role roleAdmin = new Role("ROLE_ADMIN");
-            roleService.saveRole(roleUser);
-            roleService.saveRole(roleAdmin);
+        Role roleAdmin = new Role("ROLE_ADMIN");
+        roleService.saveRole(roleUser);
+        roleService.saveRole(roleAdmin);
 
-            Set<Role> adminRoles = new HashSet<>();
-            adminRoles.add(roleAdmin);
-            adminRoles.add(roleUser);
-            User admin = new User(
-                    "AdminFN",
-                    "AdminLN",
-                    "admin@mail.ru",
-                    passwordEncoder.encode("admin"),
-                    adminRoles);
-            userService.saveUser(admin);
+        Set<Role> adminRoles = new HashSet<>();
+        adminRoles.add(roleAdmin);
+        adminRoles.add(roleUser);
+        User admin = new User(
+                "AdminFN",
+                "AdminLN",
+                29,
+                "admin@mail.ru",
+                passwordEncoder.encode("admin"),
+                adminRoles);
+        userService.saveUser(admin);
 
-            Set<Role> userRoles = new HashSet<>();
-            userRoles.add(roleUser);
-            User user = new User(
-                    "UserFN",
-                    "UserLN",
-                    "user@mail.ru",
-                    passwordEncoder.encode("user"),
-                    userRoles);
-            userService.saveUser(user);
+        Set<Role> userRoles = new HashSet<>();
+        userRoles.add(roleUser);
+        User user = new User(
+                "UserFN",
+                "UserLN",
+                31,
+                "user@mail.ru",
+                passwordEncoder.encode("user"),
+                userRoles);
+        userService.saveUser(user);
     }
 }

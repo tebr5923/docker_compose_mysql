@@ -26,6 +26,97 @@
     <a class="btn btn-dark text-white-50 navbar-nav" href="/logout" role="button">Logout</a>
 </nav>
 
+
+<div class="container-fluid">
+    <!--контейнер для боковой панели Юзер Админ-->
+
+    <div class="p-0 mt-3 row">
+        <ul class="nav flex-column nav-pills col-2">
+            <li class="nav-item">
+                <a class="nav-link active" href="#" id="admin-nav-link" data-bs-toggle="tab"
+                   data-bs-target="#admin-panel" type="button" role="tab"
+                   aria-controls="admin-panel" aria-selected="true">Admin</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" id="user-nav-link" data-bs-toggle="tab"
+                   data-bs-target="#user-panel" type="button" role="tab"
+                   aria-controls="user-panel" aria-selected="false">User</a>
+            </li>
+        </ul>
+
+        <!--Admin panel-->
+
+        <div class="col-10 bg-light vh-100">
+            <div>
+                <h2 class="mt-3">Admin panel</h2>
+            </div>
+
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">User table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">New User</a>
+                </li>
+            </ul>
+
+            <!--таблица-->
+            <div class="tab-content" id="tabContent">
+                <h5 class="card-header">All users</h5>
+                <table class="table table-striped">
+
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last name</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user: ${users}">
+                        <td th:text="${user.getId()}">id</td>
+                        <td th:text="${user.getFirstName()}">name</td>
+                        <td th:text="${user.getLastName()}">famili</td>
+                        <td th:text="${user.getAge()}">28</td>
+                        <td th:text="${user.getEmail()}">email@mail.ru</td>
+                        <td>
+                            <a th:each="role : ${user.getRoles()}">
+                                <a th:text=" ${role.getShortName()}">ROLE</a>
+                            </a>
+                        </td>
+
+                        <td>
+                            <!-- Button edit modal -->
+                            <button type="button" class="btn btn-info"
+                                    data-bs-target="#modalEdit"
+                                    th:data-bs-target="${'#editUserModal'+ user.id}">Edit
+                            </button>
+                        </td>
+
+                        <td>
+                            <!-- Button delete modal -->
+                            <button type="button" class="btn btn-danger"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalDelete"
+                                    th:data-bs-target="${'#modalDelete'+user.id}">Delete
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
 <div>
     <a href="/admin/users/">список юзеров</a>
 </div>

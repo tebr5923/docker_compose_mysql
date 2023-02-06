@@ -33,6 +33,7 @@ public class AdminController {
     @GetMapping
     public String admin(@AuthenticationPrincipal User user, Model model) {
         model.addAttribute("user", user);
+        model.addAttribute("users", userService.getAllUsers());
         return "admin/admin";
     }
 
