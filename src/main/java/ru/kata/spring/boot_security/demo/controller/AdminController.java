@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    public static final String REDIRECT_TO_LIST_USERS = "redirect:/admin/users";
+    public static final String REDIRECT_TO_ADMIN = "redirect:/admin";
 
     private final UserService userService;
     private final RoleService roleService;
@@ -34,6 +34,7 @@ public class AdminController {
     public String admin(@AuthenticationPrincipal User user, Model model) {
         model.addAttribute("user", user);
         model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("roles", roleService.getAllRoles());
         return "admin/admin";
     }
 
@@ -50,28 +51,28 @@ public class AdminController {
         user.setRoles(getRolesFromDB(roles));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.saveUser(user);
-        return REDIRECT_TO_LIST_USERS;
+        return REDIRECT_TO_ADMIN;
     }
 
 
-    @PatchMapping("/user/{id}")
+    @PatchMapping("/{id}")
     public String update(@PathVariable("id") Long id,
                          @ModelAttribute("user") User user,
                          @RequestParam() Set<Role> roles) {
         user.setRoles(getRolesFromDB(roles));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.updateUser(user);
-        return REDIRECT_TO_LIST_USERS;
+        return REDIRECT_TO_ADMIN;
     }
 
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") Long id) {
         userService.deleteUserById(id);
-        return REDIRECT_TO_LIST_USERS;
+        return REDIRECT_TO_ADMIN;
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public String user(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
         model.addAttribute("roles", roleService.getAllRoles());
