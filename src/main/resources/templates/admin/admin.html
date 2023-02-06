@@ -116,14 +116,5 @@
     </div>
 </div>
 
-
-<div>
-    <a href="/admin/users/">список юзеров</a>
-</div>
-
-<div th:if="${#authorization.expression('isAuthenticated()')}"
-     th:replace="footer :: logout">view footer
-</div>
-
 </body>
 </html>
