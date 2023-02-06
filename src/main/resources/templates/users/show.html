@@ -3,35 +3,74 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User</title>
+    <title>User page</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 <body>
 
-<div th:object="${user}">
-    <a>ID: </a>
-    <a th:text="${user.getId()}">id</a>
-    <br>
-    <a>Firstname: </a>
-    <a th:text="${user.getFirstName()}">Firstname</a>
-    <br>
-    <a>Lastname: </a>
-    <a th:text="${user.getLastName()}">Lastname</a>
 
-    <br>
-    <a>email: </a>
-    <a th:text="${user.getEmail()}">email</a>
-    <br>
-
-    <div th:each="role : ${user.getRoles()}">
-        <a>Role: </a>
-        <a th:text="${role.getName()} ">role</a>
+<!--header-->
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0" th:object="${user}">
+    <div class="l-3 p-2 mb-0 bg-dark text-white">
+        <a th:text="*{email}" class="font-weight-bold text-white">mail</a>
+        <a> with roles:</a>
+        <a th:each="role : ${user.getRoles()}">
+            <a th:text=" ${role.getShortName()}">ROLE</a>
+        </a>
     </div>
+    <a class="btn btn-dark text-white-50 navbar-nav" href="/logout" role="button">Logout</a>
+</nav>
 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2 pt-2">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile"
+                   role="tab" aria-controls="v-pills-profile" aria-selected="true">User</a>
+            </div>
+        </div>
+        <div class="col-10 pt-2 bg-light">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
+                     aria-labelledby="v-pills-profile-tab">
+                    <h1>User information-page</h1>
+                    <h5 class="pt-2 pb-2">About user</h5>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">First name</th>
+                            <th scope="col">Last name</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Role</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row" th:utext="${user.id}">ID</th>
+                            <td th:utext="${user.getFirstName()}">First name</td>
+                            <td th:utext="${user.getLastName()}">Last name</td>
+                            <td th:utext="${user.age}">Age</td>
+                            <td th:utext="${user.email}">Email</td>
+                            <td>
+                                <a th:each="role : ${user.getRoles()}">
+                                    <a th:text=" ${role.getShortName()}">ROLE</a>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-
-<div th:if="${#authorization.expression('isAuthenticated()')}"
-     th:replace="footer :: logout">view footer</div>
 
 </body>
 </html>
