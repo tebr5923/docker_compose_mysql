@@ -14,10 +14,6 @@ public class UserController {
 
     @GetMapping
     public String showMe(@AuthenticationPrincipal User user, Model model) {
-
-//        Authentication authentication =
-//                SecurityContextHolder.getContext().getAuthentication();
-//        User user = (User) authentication.getPrincipal();
         model.addAttribute("user", user);
         return "users/show";
     }

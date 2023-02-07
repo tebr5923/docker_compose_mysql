@@ -56,8 +56,7 @@ public class AdminController {
 
 
     @PatchMapping("/{id}")
-    public String update(@PathVariable("id") Long id,
-                         @ModelAttribute("user") User user,
+    public String update(@ModelAttribute("user") User user,
                          @RequestParam() Set<Role> roles) {
         user.setRoles(getRolesFromDB(roles));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
