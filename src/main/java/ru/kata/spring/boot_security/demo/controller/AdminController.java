@@ -56,10 +56,15 @@ public class AdminController {
 
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") User user,
+    public String update(@PathVariable("id") Long id,
+                         @ModelAttribute("user") User user,
                          @RequestParam() Set<Role> roles) {
         user.setRoles(getRolesFromDB(roles));
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (user.getPassword().equals("")) {
+            user.setPassword(userService.getUserById(id).getPassword());
+        } else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         userService.updateUser(user);
         return REDIRECT_TO_ADMIN;
     }
