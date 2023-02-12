@@ -1,7 +1,6 @@
 package ru.kata.spring.boot_security.demo.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
@@ -17,13 +16,11 @@ public class DataLoader {
 
     private final UserService userService;
     private final RoleService roleService;
-    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public DataLoader(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
+    public DataLoader(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @PostConstruct
@@ -41,7 +38,7 @@ public class DataLoader {
                 "AdminLN",
                 29,
                 "admin@mail.ru",
-                passwordEncoder.encode("admin"),
+                "admin",
                 adminRoles);
         userService.saveUser(admin);
 
@@ -52,7 +49,7 @@ public class DataLoader {
                 "UserLN",
                 31,
                 "user@mail.ru",
-                passwordEncoder.encode("user"),
+                "user",
                 userRoles);
         userService.saveUser(user);
     }
