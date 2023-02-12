@@ -12,19 +12,9 @@ public class RestClient {
         String url = "http://localhost:8080/api/v1/users/1";
         var response = restTemplate.getForObject(url, String.class);
 
-        ObjectMapper mapper = new ObjectMapper();
-        var object = mapper.readTree(response);
-
-        User user = new User();
-        user.setId(object.get("id").asLong());
-        user.setFirstName(object.get("firstName").asText());
-        user.setLastName(object.get("lastName").asText());
-        user.setAge(object.get("age").asInt());
-        user.setEmail(object.get("email").asText());
-        user.setPassword(object.get("password").asText());
-       // user.setFirstName(object.get(""));
+        UserMapper userMapper = new UserMapper();
         System.out.println(response);
-        System.out.println(user);
+        System.out.println(userMapper.jasonToUser(response));
 
 
     }
