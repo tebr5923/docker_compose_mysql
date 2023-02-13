@@ -3,6 +3,7 @@ package ru.kata.spring.boot_security.demo.restController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,29 +30,30 @@ public class UserRestController {
         this.userService = userService;
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public User user(@PathVariable("id") Long id) {
-        return userService.getUserById(id);
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<User>> list() {
+        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<User> list() {
-        return userService.getAllUsers();
+    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> user(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public User create(@RequestBody User user) {
+//    @ResponseStatus(HttpStatus.CREATED) //201
+    public ResponseEntity<User> create(@RequestBody User user) {
         userService.saveUser(user);
-        return user;
+        return new ResponseEntity<>(user, HttpStatus.CREATED);//201
     }
 
-    @PutMapping("/{id}")
-    public User update(@PathVariable("id") Long id, @RequestBody User user) {
+    @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> update(@PathVariable("id") Long id, @RequestBody User user) {
         user.setId(id);
         userService.updateUser(user);
-        return user;
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
+    // TODO: 13.02.2023 add patch update
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
