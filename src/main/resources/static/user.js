@@ -1,8 +1,8 @@
 $(async function () {
-    await userU();
+    await userInfo();
 });
 
-async function userU() {
+async function userInfo() {
     let url = "http://localhost:8080/api/v1/user"
     let response = await fetch(url);
     let {id, firstName, lastName, age, email, roles} = await response.json()
