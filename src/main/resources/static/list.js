@@ -30,7 +30,7 @@ function usersToTableBody({id, firstName, lastName, age, email, roles}) {
                 <td>${textRoles}</td>             
                 <td>
                      <button type="button" class="btn btn-info editBtn" data-toggle="modal"
-                        data-target="#edit"
+                        data-target="#editModal"
                         onclick="editUserData(${id})">
                         Edit
                     </button>
@@ -38,7 +38,7 @@ function usersToTableBody({id, firstName, lastName, age, email, roles}) {
                 <td>
                     <button type="button" class="btn btn-danger"
                         data-toggle="modal"
-                        data-target="#delete"
+                        data-target="#deleteModal"
                         onclick="deleteUserData(${id})">
                         Delete
                     </button>
