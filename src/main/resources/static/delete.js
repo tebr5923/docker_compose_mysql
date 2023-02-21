@@ -1,5 +1,15 @@
-async function deleteUserData(id) {
+async function showAllRole() {
+    let dbRoles = [];
+    let roles = await fetch("http://localhost:8080/api/v1/roles");
+    await roles.json().then(roles => {
+        roles.forEach(role =>
+            dbRoles.push(role))
+    });
+    return dbRoles;
+}
 
+
+async function deleteUserData(id) {
     let dbRoles = showAllRole();
     let href = `http://localhost:8080/api/v1/users/${id}`
 
@@ -15,15 +25,16 @@ async function deleteUserData(id) {
         $('.myDeleteForm #dLastName').val(user.lastName);
         $('.myDeleteForm #dAge').val(user.age);
         $('.myDeleteForm #dEmail').val(user.email);
-        const inputRoles = document.getElementById('dRoles');
 
 
-        inputRoles.innerHTML = `
-        <option value="${dbRoles[0].id}" name="ROLE_USER" >${dbRoles[0].role}</option>
-        <option value="${dbRoles[1].id}" name="ROLE_ADMIN" >${dbRoles[1].role}</option>
-        `
+        //  const inputRoles = document.getElementById('dRoles');
+        //  inputRoles.innerHTML = `
+        const inputRoles = $('#dRoles')
+        inputRoles.append(`
+         <option value="${dbRoles[0].id}" name="ROLE_USER" >${dbRoles[0].name}</option>
+        <option value="${dbRoles[1].id}" name="ROLE_ADMIN" >${dbRoles[1].name}</option>
+        `)
     })
-
 
     document.getElementById('delete-user-button').addEventListener('click', async () => {
         const res = await fetch(`http://localhost:8080/api/v1/users/${id}`, {
@@ -32,12 +43,10 @@ async function deleteUserData(id) {
                 'Content-Type': 'application/json',
             }
         });
-        document.getElementById(`user${id}`).remove();
-
-
-        $('#deleteModal').modal('toggle');
-
+        // document.getElementById(`user${id}`).remove();
+        // $('#deleteModal').modal('toggle');
+        $('#deleteFormCloseButton').click();
+        await list();
     })
-
 
 }

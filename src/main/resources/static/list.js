@@ -2,7 +2,11 @@ $(async function () {
     await list();
 });
 
+const userTableBody = $('#tBodyAllUsersId')
+
 async function list() {
+    userTableBody.empty()
+
     let url = "http://localhost:8080/api/v1/users"
     let response = await fetch(url)
     let users = await response.json()
@@ -10,6 +14,7 @@ async function list() {
         usersToTableBody(user)
     })
 }
+
 
 function usersToTableBody({id, firstName, lastName, age, email, roles}) {
     let textRoles = ""
@@ -19,7 +24,6 @@ function usersToTableBody({id, firstName, lastName, age, email, roles}) {
         textRoles += roleShortName
     })
 
-    const userTableBody = document.getElementById("tBodyAllUsersId")
     const tableBody = `
     <tr>
                 <td>${id}</td>
@@ -44,5 +48,5 @@ function usersToTableBody({id, firstName, lastName, age, email, roles}) {
                     </button>
                 </td>
     </tr>`
-    userTableBody.insertAdjacentHTML('beforeend', tableBody)
+    userTableBody.append(tableBody)
 }
