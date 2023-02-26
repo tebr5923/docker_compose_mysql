@@ -24,7 +24,7 @@ async function editUserData(id) {
         $('.myForm #lastName').val(user.lastName);
         $('.myForm #age').val(user.age);
         $('.myForm #email').val(user.email);
-        $('.myForm #password').val(user.password);
+        $('.myForm #password').val("");
         const inputRoles = document.getElementById('roles');
 
         inputRoles.innerHTML = `
@@ -51,7 +51,7 @@ async function editUserData(id) {
         const listRoleEditUser = await roleArray(document.getElementById('roles'))
 
 
-        if (id && firstName && lastName && age && email && password) {
+        if (id && firstName && lastName && age && email) {
             const res = await fetch(`http://localhost:8080/api/v1/users/${id}`, {
                 method: 'PUT',
                 headers: {
