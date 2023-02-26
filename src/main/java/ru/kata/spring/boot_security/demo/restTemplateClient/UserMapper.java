@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.client;
+package ru.kata.spring.boot_security.demo.restTemplateClient;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

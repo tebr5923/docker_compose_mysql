@@ -52,5 +52,15 @@ public class DataLoader {
                 "user",
                 userRoles);
         userService.saveUser(user);
+
+        User user2 = new User(
+                "UserFN2",
+                "UserLN2",
+                37,
+                "user2@mail.ru",
+                "user2",
+                userRoles);
+        userService.saveUser(user2);
+
     }
 }

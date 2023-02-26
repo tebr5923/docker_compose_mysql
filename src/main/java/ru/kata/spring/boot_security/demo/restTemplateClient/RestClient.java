@@ -1,19 +1,12 @@
-package ru.kata.spring.boot_security.demo.client;
+package ru.kata.spring.boot_security.demo.restTemplateClient;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.client.RestTemplate;
-import ru.kata.spring.boot_security.demo.dao.RoleDaoImpl;
-import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.service.RoleService;
-import ru.kata.spring.boot_security.demo.service.RoleServiceImpl;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class RestClient {
     public static void main(String[] args) throws JsonProcessingException {
