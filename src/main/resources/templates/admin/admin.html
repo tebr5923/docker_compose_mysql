@@ -43,7 +43,7 @@
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
                             <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
                                role="tab" aria-controls="nav-home" aria-selected="true">Users table</a>
-                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
+                            <a class="nav-item nav-link" id="profile-tab" data-toggle="tab" href="#newUser"
                                role="tab" aria-controls="nav-profile" aria-selected="false">New User</a>
                         </div>
                     </nav>
@@ -245,53 +245,65 @@
                             </div>
 
                         </div>
-                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                            <div class="row-cols-auto bg-white ">
-                                <div class="col-12 bg-light border">
-                                    <h5 class="pl-3 pt-2 pb-2">Add new user</h5>
-                                </div>
-                                <div class="col-12 pl-3 pr-3 pt-3 pb-3 border">
-                                    <form th:action="@{/admin/create_user}" th:object="${user}" method="post">
-                                        <div class="text-center col-3 offset-3 col-md-2 offset-md-3">
-                                            <div class="form-group text-center">
-                                                <label class="font-weight-bold" for="firstNameNew">First name</label>
-                                                <input id="firstNameNew" class="form-control" th:field="*{firstName}"
-                                                       placeholder="First Name">
-                                            </div>
-                                            <div class="form-group text-center">
-                                                <label class="font-weight-bold" for="lastNameNew">Name</label>
-                                                <input id="lastNameNew" class="form-control" th:field="*{lastName}"
-                                                       placeholder="Last Name">
-                                            </div>
-                                            <div class="form-group text-center">
-                                                <label class="font-weight-bold" for="AgeNew">Age</label>
-                                                <input type="number" id="AgeNew" class="form-control" th:field="*{age}"
-                                                       placeholder="Age">
-                                            </div>
-                                            <div class="form-group text-center">
-                                                <label class="font-weight-bold" for="emailNew">Email</label>
-                                                <input id="emailNew" class="form-control" th:field="*{email}"
-                                                       placeholder="Email">
-                                            </div>
-                                            <div class="form-group text-center">
-                                                <label class="font-weight-bold" for="passwordNew">Password</label>
-                                                <input type="password" id="passwordNew" class="form-control"
-                                                       th:field="*{password}" placeholder="Password">
-                                            </div>
-                                            <div class="form-group text-center">
-                                                <label class="font-weight-bold" for="rolesNew">Role</label> <br>
-                                                <select id="rolesNew" class="form-select"
-                                                        name="roles"
-                                                        multiple size="2">
-                                                    <option th:each="role: ${roles}"
-                                                            th:text="${role.getShortName()}"
-                                                            th:value="${role.getName()}">
-                                                        <th:block th:text="${roles}">
-                                                        </th:block>
-                                                    </option>
-                                                </select>
-                                            </div>
-                                            <button type="submit" class="btn btn-success btn-lg">Add new user</button>
+                        <!--                        new user-->
+                        <div class="tab-pane fade" id="newUser" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="card">
+                                <h5 class="card-header">Add new user</h5>
+                                <div class="card-body w-50 p-3" style="margin: auto; text-align: center">
+                                    <form id="newUserForm">
+                                        <div class="form-group">
+                                            <label class="font-weight-bold"
+                                                   for="nFirstName">First
+                                                name</label>
+                                            <input type="text" class="form-control"
+                                                   id="nFirstName"
+                                                   placeholder="firstName" name="firstName"
+                                                   value=""/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold"
+                                                   for="nLastName">Last
+                                                name</label>
+                                            <input type="text" class="form-control"
+                                                   id="nLastName"
+                                                   placeholder="lastName" name="lastName"
+                                                   value=""/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold"
+                                                   for="nAge">Age</label>
+                                            <input type="number" class="form-control"
+                                                   id="nAge"
+                                                   placeholder="Age" name="age"
+                                                   value=""/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold"
+                                                   for="nEmail">email</label>
+                                            <input type="text" class="form-control"
+                                                   id="nEmail"
+                                                   placeholder="email" name="email"
+                                                   value=""/>
+                                        </div>
+                                        <label class="font-weight-bold"
+                                               for="nPassword">Password</label>
+                                        <input type="password" id="nPassword"
+                                               class="form-control"
+                                               aria-describedby="passwordHelpBlock" name="password"
+                                               autocomplete="off"
+                                               value=""/>
+                                        <div class="form-group">
+                                            <label for="roles"
+                                                   class="form-label fw-bold">Roles</label>
+                                            <select multiple class="form-control" id="nRoles"
+                                                    name="roles" size="2">
+                                                <option name="roles"/>
+                                            </select>
+                                        </div>
+                                        <div class="row">
+                                            <button type="button" class="btn btn-success" id="addNewUser"
+                                                    style="margin: auto">Add new user
+                                            </button>
                                         </div>
                                     </form>
                                 </div>
@@ -348,8 +360,8 @@
 <script src="user.js" type="text/javascript"></script>
 <script src="list.js" type="text/javascript"></script>
 <script src="delete.js" type="text/javascript"></script>
-<script src="new.js" type="text/javascript"></script>
 <script src="edit.js" type="text/javascript"></script>
+<script src="new.js" type="text/javascript"></script>
 
 </body>
 </html>
