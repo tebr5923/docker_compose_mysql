@@ -4,15 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
@@ -53,7 +45,33 @@ public class UserRestController {
         userService.updateUser(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
-    // TODO: 13.02.2023 add patch update
+
+
+    @PatchMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> patchUpdate(@PathVariable("id") Long id, @RequestBody User user) {
+        var userFromDB = userService.getUserById(id);
+        if (!user.getFirstName().equals("")) {
+            userFromDB.setFirstName(user.getFirstName());
+        }
+        if (!user.getLastName().equals("")) {
+            userFromDB.setLastName(user.getLastName());
+        }
+        if (user.getAge() != null) {
+            userFromDB.setAge(user.getAge());
+        }
+        if (!user.getEmail().equals("")) {
+            userFromDB.setEmail(user.getEmail());
+        }
+        if (!user.getPassword().equals("")) {
+            userFromDB.setPassword(user.getPassword());
+        }
+        if (!user.getRoles().isEmpty()) {
+            userFromDB.setRoles(user.getRoles());
+        }
+
+        userService.updateUser(userFromDB);
+        return new ResponseEntity<>(userFromDB, HttpStatus.OK);
+    }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
