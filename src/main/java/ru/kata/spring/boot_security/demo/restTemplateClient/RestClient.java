@@ -60,7 +60,7 @@ public class RestClient {
         putMap.put("age", "25");
         HttpEntity<Map<String, String>> httpEntityPut = new HttpEntity<>(putMap, httpHeadersPut);
 
-        ResponseEntity<String> putResponse = restTemplate.exchange(url, HttpMethod.PUT, httpEntity, String.class);
+        ResponseEntity<String> putResponse = restTemplate.exchange(url, HttpMethod.PUT, httpEntityPut, String.class);
 
         System.out.println("put headers:" + putResponse.getHeaders());
         System.out.println("----------------------");
@@ -74,7 +74,7 @@ public class RestClient {
 
         HttpEntity<String> httpEntityDelete = new HttpEntity<>(httpHeadersDel);
 
-        ResponseEntity<String> delResponse = restTemplate.exchange(url + "/3", HttpMethod.DELETE, httpEntity, String.class);
+        ResponseEntity<String> delResponse = restTemplate.exchange(url + "/3", HttpMethod.DELETE, httpEntityDelete, String.class);
 
         System.out.println("del headers:" + delResponse.getHeaders());
         System.out.println("----------------------");
